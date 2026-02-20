@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  container-1:
+    image: nvcr.io/nvidia/physicsnemo/physicsnemo:25.06
+    ports:
+      - '8888:8888'
+    volumes:
+      - ./:/workspace
+    entrypoint: /bin/bash
+    command: >-
+       -c "pip install nvidia-physicsnemo-sym --no-build-isolation &&
+       git clone https://github.com/ivanauyeung/PINNs_HKBU.git &&
+       jupyter lab --ip=0.0.0.0 --no-browser --NotebookApp.token=''
+       --allow-root --NotebookApp.allow_origin='*' --NotebookApp.password=''
+       --notebook-dir='./PINNs_HKBU'"
